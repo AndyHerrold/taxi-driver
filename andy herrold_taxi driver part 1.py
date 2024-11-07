@@ -12,6 +12,9 @@ class Molly(simpleGE.Sprite):
         super()__init__(scene)
         self.setImage("Molly.png")
         self.setSize(25, 25)
+        self.minSpeed = 3
+        self.maxSpeed = 8
+        self.reset()
         
 class Taxi(simpleGE.Sprite):
     def__init__(self, scene):
@@ -20,6 +23,16 @@ class Taxi(simpleGE.Sprite):
         self.setSize(50, 50)
         self.position = (320, 400)
         self.moveSpeed = 5
+        
+    def reset(self):
+        self.y = 10
+        self.x = random.randint(0, self.screenWidth)
+        
+        self.dy = random.randint(self.minSpeed, self.maxSpeed)
+        
+    def checkBounds(self):
+        if self.bottom > self.screenHeight:
+            self.reset()
         
     def process(self):
         if self.isKeyPressed(pygame.K_LEFT):
@@ -34,10 +47,23 @@ class Game(simpleGE.scene):
     def__init__(self):
         super().__init__()
         self.setImage("cityscape.png")
+        self.sndMolly = simpleGE.Sound("molly.wav")
+        self.numMollys = 5
         self.taxi = Taxi(self)
+        self.mollys = []
+        for i in range(self.numMollys):
+            self.mollys.append(Molly(self))
         
         
-        self.sprites = [self.taxi,self.molly]
+        self.sprites = [self.taxi,self.mollys]
+        
+    def process(self):
+        for molly in self.mollys:
+            
+        if molly.collidesWith(self.taxi):
+            molly.reset()
+            self.sndMolly.play()
+
         
     
 def main():
