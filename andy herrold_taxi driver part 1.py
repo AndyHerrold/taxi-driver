@@ -6,6 +6,13 @@ taxidriver.py
 slide and catch game
 andy herrold
 """
+
+class Molly(simpleGE.Sprite):
+    def__init__(self, scene):
+        super()__init__(scene)
+        self.setImage("Molly.png")
+        self.setSize(25, 25)
+        
 class Taxi(simpleGE.Sprite):
     def__init__(self, scene):
         super().__init__(scene)
@@ -29,7 +36,9 @@ class Game(simpleGE.scene):
         self.setImage("cityscape.png")
         self.taxi = Taxi(self)
         
-        self.sprites = [self.taxi]
+        
+        self.sprites = [self.taxi,self.molly]
+        
     
 def main():
     game = Game()
