@@ -6,5 +6,34 @@ taxidriver.py
 slide and catch game
 andy herrold
 """
+class Taxi(simpleGE.Sprite):
+    def__init__(self, scene):
+        super().__init__(scene)
+        self.setImage("Taxi.png")
+        self.setSize(50, 50)
+        self.position = (320, 400)
+        self.moveSpeed = 5
+        
+    def process(self):
+        if self.isKeyPressed(pygame.K_LEFT):
+            self.x -= self.moveSpeed
+        if self.isKeyPressed(pygame.K_right):
+            self.x += self.moveSpeed
+            
+            
+            
+        
 class Game(simpleGE.scene):
-    def
+    def__init__(self):
+        super().__init__()
+        self.setImage("cityscape.png")
+        self.taxi = Taxi(self)
+        
+        self.sprites = [self.taxi]
+    
+def main():
+    game = Game()
+    game.start()
+
+if __name__==__ "main__":
+    main()
